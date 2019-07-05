@@ -9,11 +9,9 @@ import com.c4f.mvvm.database.AppDatabase;
 import com.c4f.mvvm.model.User;
 
 public class DiskUserDataStore implements UserDataStore {
-    private Context context;
     AppDatabase appDatabase;
 
     public DiskUserDataStore(Context context) {
-        this.context = context;
         appDatabase = new AppDatabase(context);
     }
 
