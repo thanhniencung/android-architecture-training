@@ -1,19 +1,22 @@
 package com.c4f.mvvm;
 
+
+import androidx.arch.core.util.Function;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 public class MainViewModel extends ViewModel  {
-    private final MutableLiveData<Integer> counter = new MutableLiveData<>();
+    public final MutableLiveData<Integer> counter = new MutableLiveData<>();
 
     public static MainViewModel of(FragmentActivity activity) {
         return ViewModelProviders.of(activity).get(MainViewModel.class);
     }
 
-    public LiveData<Integer> getCounter() {
+    public LiveData<Integer> getCounterAsTring() {
         return counter;
     }
 
@@ -29,5 +32,6 @@ public class MainViewModel extends ViewModel  {
         }
         int value = counter.getValue() == null ? 0 : counter.getValue() -  1;
         counter.setValue(value);
+
     }
 }

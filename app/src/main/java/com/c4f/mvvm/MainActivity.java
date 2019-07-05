@@ -1,20 +1,28 @@
 package com.c4f.mvvm;
 
+import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+
+import com.c4f.mvvm.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        // Nếu lỗi xảy ra
+        ActivityMainBinding bindingView = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         final MainViewModel mainViewModel = MainViewModel.of(this);
+
+        bindingView.setViewmodel(mainViewModel);
+        bindingView.setLifecycleOwner(this);
+
         findViewById(R.id.btnIncrement).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,11 +37,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainViewModel.getCounter().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                ((TextView) findViewById(R.id.txtCounter)).setText(integer.toString());
-            }
-        });
     }
 }
